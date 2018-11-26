@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 const clientId = '17';
-const redirectUri = 'http://localhost:3000';
+const redirectUri = 'https://chiefapp-gus.herokuapp.com'; // http://localhost:3000  --  https://chiefapp-gus.herokuapp.com
 const grant_type = 'authorization_code'
 const client_secret = 'BRq3i7bK2uxfhpoyEZANdJxGNkXCmZrmImP9Zi0v'; 
 
