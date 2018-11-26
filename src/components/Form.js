@@ -22,9 +22,7 @@ class Form extends Component {
    });
   };
   
-  render() {
-    console.log(this.props.match);
-    
+  render() {    
     return (
       <div className="container">
         <div className="row">

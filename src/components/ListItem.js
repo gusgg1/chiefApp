@@ -23,7 +23,6 @@ class ListItem extends Component {
   };
 
   render() {
-    console.log(this.props.match.match.params.id);
     return (
       <div className="container">
         <div className="row">
