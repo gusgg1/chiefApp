@@ -1,27 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PaginationLoading from 'react-loading-animation';
 
 
 export default (props) => {
 
-  const nextBtnControls = (page) => {
-    if (props.currentPage === props.totalPages) {
+  const buttonControls = async (page, pages) => {
+    if (props.currentPage === pages) {
       return;
     } 
-    return props.fetchPagination(page);
-  }
-
-  const previousBtnControls = (page) => {
-    if (props.currentPage === 1) {
-      return;
-    }
-    return props.fetchPagination(page);
+    props.handleLoading(true);
+    await props.fetchPagination(page);
+    props.handleLoading(false);
   }
 
   return (
     <React.Fragment>
       <div className="col-sm-3">
-        <Link onClick={() => previousBtnControls(props.currentPage - 1)} to='/'>
+        <Link onClick={() => buttonControls(props.currentPage - 1, 1)} to='/'>
           <div className="card mt-4 justify-content-center align-self-center text-center pagination-previous">
             <div className="card-block">
               <p className="card-text">Previous</p>
@@ -30,7 +26,7 @@ export default (props) => {
         </Link>
       </div>
       <div className="col-sm-3">
-        <Link onClick={() => nextBtnControls(props.currentPage + 1)} to='/'>
+        <Link onClick={() => buttonControls(props.currentPage + 1, props.totalPages)} to='/'>
           <div className="card mt-4 justify-content-center align-self-center text-center pagination-next">
             <div className="card-block">
               <p className="card-text">Next</p>
@@ -38,6 +34,8 @@ export default (props) => {
           </div>
         </Link>
       </div>
+      {props.loading ? <PaginationLoading /> : null}
     </React.Fragment>
   );
+  
 };

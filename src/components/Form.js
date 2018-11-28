@@ -2,24 +2,37 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { postDraft } from '../actions';
+import NotificationBtn from './Notifications';
 
 
 class Form extends Component {
   state = {
     title: '',
-    body: ''
+    body: '',
+    form: 'warning'
   }
 
-  handleChange = name => e => {
-    this.setState({ [name]: e.target.value });
+  handleChange = name => async e => {
+    await this.setState({ [name]: e.target.value });
+    if (this.state.title === '' || this.state.body === '') {
+      this.setState({ form: 'warning' });
+    } else if (this.state.title !== '' && this.state.body !== '') {
+      this.setState({ form: 'success' });
+    }
   };
 
-  handleSubmit = e => {
-    e.preventDefault();    
-    this.setState({ 
-      title: '',
-      body: ''
-   });
+  handleSubmit = async e => {
+    e.preventDefault();
+    if (this.state.title !== '' && this.state.body !== '') {
+      await this.setState({ form: 'success' });
+      this.props.postDraft(this.state.title, this.state.body);
+      this.setState({ 
+        title: '',
+        body: ''
+     });
+    } else {
+      return;
+    }
   };
   
   render() {    
@@ -29,16 +42,18 @@ class Form extends Component {
           <div className="col-sm-10 offset-sm-1 text-center">
             <form onSubmit={this.handleSubmit}>
             <div className="form-group">
-              <input type="text" className="form-control" placeholder="Title" 
+              <input type="text" className="form-control" placeholder="Title" required
                 onChange={this.handleChange('title')} 
                 value={this.state.title}
-                required
               />
             </div>
             <div className="form-group">
-              <textarea onChange={this.handleChange('body')} value={this.state.body} className="form-control" rows="16" placeholder="Write your story..." required></textarea>
+              <textarea className="form-control" rows="16" placeholder="Write your story..." required
+                onChange={this.handleChange('body')} 
+                value={this.state.body} 
+              />
             </div>
-              <button onClick={() => this.props.postDraft(this.state.title, this.state.body)} className="btn btn-success btn-md">Create Draft</button> 
+              <NotificationBtn formState={this.state.form} />
             </form>
           </div>
         </div>

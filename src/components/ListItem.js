@@ -39,6 +39,7 @@ class ListItem extends Component {
               <textarea className="form-control" rows="16" placeholder="Write your story..."
                 onChange={this.handleChange('body')} 
                 value={this.state.body}
+                required
               />
             </div>
               <button className="btn btn-success btn-md"

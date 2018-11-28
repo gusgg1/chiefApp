@@ -6,10 +6,10 @@ import { UPDATE_DRAFT } from './types';
 import axios from 'axios';
 
 
-const clientId = '17';
-const redirectUri = 'https://chiefapp-gus.herokuapp.com'; // http://localhost:3000  --  https://chiefapp-gus.herokuapp.com
+const clientId = '16';
+const redirectUri = 'http://localhost:3000'; // http://localhost:3000  --  https://chiefapp-gus.herokuapp.com
 const grant_type = 'authorization_code'
-const client_secret = 'BRq3i7bK2uxfhpoyEZANdJxGNkXCmZrmImP9Zi0v'; 
+const client_secret = 'zl2J2OYdeiUFtyPQ4kR7nWjXVP7xe9yhrrgk8ujY'; 
 
 // holds the data to be displayed
 let drafts;

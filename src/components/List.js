@@ -8,22 +8,36 @@ import Pagination from './Pagination';
 
 
 class List extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false
+    }
+  }
+
+  handleLoading = (boolean) => {
+    this.setState({ loading: boolean });
+  }
 
   renderData = () => (
     <div className="container">
+      <span className="badge badge-light">Total drafts: {this.props.stories.meta.pagination.total}</span>
+      <span className="badge badge-light ml-2">Page: {this.props.stories.meta.pagination.current_page} of {this.props.stories.meta.pagination.total_pages}</span>
       <div className="row">
       {this.props.stories.data.map(story => (
         <div key={story.id} className="col-sm-3">
           <Link to={`/draft/${story.id}/${story.title}`}>
             <div className="card mt-4 justify-content-center align-self-center text-center">
               <div className="card-block">
-                <p className="card-text">{this.trimSlug(story.slug)}</p>
+                <p className="card-text">{this.trimTitle(story.title)}</p>
               </div>
             </div>
           </Link>
         </div>
       ))}
         <Pagination 
+          loading={this.state.loading}
+          handleLoading={this.handleLoading}
           fetchPagination={this.props.fetchPagination} 
           currentPage={this.props.stories.meta.pagination.current_page} 
           totalPages={this.props.stories.meta.pagination.total_pages} />
@@ -31,11 +45,11 @@ class List extends Component {
     </div>
   )
 
-  trimSlug(slug) {
-    if (slug.length > 30) {
-      return slug.substring(0, 30) + '...';
+  trimTitle(title) {
+    if (title.length > 30) {
+      return title.substring(0, 30) + '...';
     }
-    return slug;
+    return title;
   }
 
   render() {
