@@ -1,5 +1,5 @@
-const clientId = '17'; // 17
-const redirectUri = 'https://chiefapp-gus.herokuapp.com'; // http://localhost:3000  --  https://chiefapp-gus.herokuapp.com'
+const clientId = process.env.REACT_APP_STORY_CLIENT_ID;
+const redirectUri = 'https://chiefapp-gus.herokuapp.com'; // http://localhost:3000  ---  https://chiefapp-gus.herokuapp.com'
 
 
 const Util = {
